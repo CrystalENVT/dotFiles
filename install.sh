@@ -12,7 +12,7 @@ echo "Files being \"installed\" (symlinked)"
 # don't include emacs temp files
 # print files being "installed" && remove any old files manually created && symlink the files"
 find -type f \
-	 -not -name "*~" \
+     -not -name "*~" \
      -not -name "\#*\#" \
 		  -exec bash -c 'file_path="$(echo ${0:2})" && echo "$HOME/$file_path" && rm -f "$HOME/$file_path" && ln -s "$(pwd)/$file_path" "$HOME/$file_path"' {} \;
 cd $current_dir
