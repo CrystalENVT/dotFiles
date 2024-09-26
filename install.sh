@@ -1,6 +1,8 @@
 #!/bin/bash
 
 current_dir=$(pwd)
+
+# The below command is gotten from this stack overflow post: https://stackoverflow.com/a/4774063
 script_dir="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 
 # run following find command starting from "files" located in the script directory
@@ -13,6 +15,6 @@ echo "Files being \"installed\" (symlinked)"
 # print files being "installed" && remove any old files manually created && symlink the files"
 find -type f \
      -not -name "*~" \
-     -not -name "\#*\#" \
+     -not -name "#*#" \
 		  -exec bash -c 'file_path="$(echo ${0:2})" && echo "$HOME/$file_path" && rm -f "$HOME/$file_path" && ln -s "$(pwd)/$file_path" "$HOME/$file_path"' {} \;
 cd $current_dir
