@@ -91,13 +91,17 @@ end
 fish_add_path ~/.local/bin/
 
 # connect to emacs daemon, or create a new session
-alias emacs "emacsclient -t -a '/usr/bin/emacs'"
+alias emacs "emacsclient -t -a 'emacs -t'"
 
 # Set default editor
 set -gx EDITOR "emacs"
 
 if test -e $HOME/.config/emacs/bin
 	fish_add_path ~/.config/emacs/bin
+	abbr cfg_doom_config "emacs ~/.config/doom/config.el"
+	abbr cfg_doom_init "emacs ~/.config/doom/init.el"
+	abbr conf_doom_init "emacs ~/.config/doom/config.el"
+	abbr conf_doom_init "emacs ~/.config/doom/init.el"
 end
 
 # setup commands with expected behaviour
