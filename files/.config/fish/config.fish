@@ -99,4 +99,6 @@ abbr clean_git "git fetch --all -p; git branch -vv | grep \": gone]\" | awk '{ p
 
 ### WORK STUFF BELOW HERE ###
 
-source ~/.config/fish/functions/work.fish
+if test -e $HOME/.config/fish/functions/work.fish
+   source $HOME/.config/fish/functions/work.fish
+end
