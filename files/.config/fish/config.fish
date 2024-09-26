@@ -40,10 +40,12 @@ function fish_prompt -d "Write out the prompt"
     if not type -q fisher
         echo "Fisher is not installed. Installing it along with expected packages (!! & async_prompt)"
         curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
-	    fisher install oh-my-fish/plugin-bang-bang
+		# ^^ fisher install vv fisher plugins install, alphabetical order
 	    fisher install acomagu/fish-async-prompt
-		fisher install jorgebucaran/autopair.fish
 		fisher install jethrokuan/z
+		fisher install jihchi/jq-fish-plugin
+		fisher install jorgebucaran/autopair.fish
+		fisher install oh-my-fish/plugin-bang-bang
     end	
 	
     if functions -q fish_is_root_user; and fish_is_root_user
