@@ -73,6 +73,9 @@ if status is-interactive
 
 end
 
+# add locally installed binaries to path
+fish_add_path ~/.local/bin/
+
 # Set default editor
 set -gx EDITOR "emacs"
 
