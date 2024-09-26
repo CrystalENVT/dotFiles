@@ -49,23 +49,19 @@ function fish_prompt -d "Write out the prompt"
     end	
 	
     if functions -q fish_is_root_user; and fish_is_root_user
-        if set -q fish_color_cwd_root
-            set color_cwd $fish_color_cwd_root
-        else
-            set color_cwd $fish_color_cwd
-        end
+		set user_color 'brred'
         set PROMPT_CHAR '#'
     else
-        set color_cwd $fish_color_cwd
+		set user_color 'normal'
         set PROMPT_CHAR '$'
     end
     # prompt in format of:
     # TIME Username:cwd (git prompt)$
 
     # teal current time
-    printf "%s%s%s " (set_color 2BC) (date +%H:%M:%S) (set_color normal)
+    printf "%s%s " (set_color 2BC) (date +%H:%M:%S)
     # "normal" username
-    printf "%s:" $USER
+    printf "%s%s:" (set_color $user_color) $USER
     # colored cwd & git info & final prompt character
     printf "%s%s%s%s%s " (set_color $fish_color_cwd) (prompt_pwd --full-length-dirs=2 --dir-length=1) (set_color normal) (fish_vcs_prompt) $PROMPT_CHAR
 end
