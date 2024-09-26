@@ -90,8 +90,15 @@ end
 # add locally installed binaries to path
 fish_add_path ~/.local/bin/
 
+# connect to emacs daemon, or create a new session
+alias emacs "emacsclient -t -a '/usr/bin/emacs'"
+
 # Set default editor
 set -gx EDITOR "emacs"
+
+if test -e $HOME/.config/emacs/bin
+	fish_add_path ~/.config/emacs/bin
+end
 
 # setup commands with expected behaviour
 alias rm "rm -i"
