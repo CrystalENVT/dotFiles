@@ -1,3 +1,5 @@
+#!/usr/bin/env fish
+
 # set greeting message, currently disabled
 set fish_greeting
 
