@@ -95,7 +95,7 @@ if type xclip &> /dev/null
 end
 
 # Prune removed remote branches from local git
-abbr clean_git "git fetch --all -p; git branch -vv | grep \": gone]\" | awk '{ print \$1 }' | xargs -n 1 git branch -d"
+abbr clean_git "git fetch --all -p; git branch -vv | grep \": gone]\" | awk '{ print \$1 }' | xargs -n 1 git branch -D"
 
 ### WORK STUFF BELOW HERE ###
 
