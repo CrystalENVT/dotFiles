@@ -75,4 +75,7 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
+;; Don't highlight line that cursor is on
 (setq global-hl-line-modes nil)
+;; Don't prompt for exiting emacs
+(setq confirm-kill-emacs nil)
