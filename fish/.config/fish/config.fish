@@ -16,7 +16,7 @@ function fish_greeting
         touch /tmp/crystal_fisher_update_timestamp
     else
         if test ! -f /tmp/crystal_fisher_update_timestamp
-            touch /tmp/crystal_fisher_update_timestamp
+            touch -d $(date --date="2 days ago") /tmp/crystal_fisher_update_timestamp
         end
         set fisher_update_timestamp (date +%s -r /tmp/crystal_fisher_update_timestamp)
         set one_day_ago (date +%s --date="1 day ago")
@@ -24,6 +24,7 @@ function fish_greeting
             echo "Updating fisher & plugins..."
             # silence update details except for info
             fisher update | grep --invert-match Fetching | grep --ignore-case --color=NEVER update
+            touch /tmp/crystal_fisher_update_timestamp
         end
     end
 end
