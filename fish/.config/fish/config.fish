@@ -98,7 +98,7 @@ alias emacs "emacs --maximized"
 set -gx EDITOR emacs
 
 if test -e $HOME/.config/emacs/bin
-    fish_add_path ~/.config/emacs/bin
+    alias doom $HOME/.config/emacs/bin/doom
     abbr cfg_doom_config "emacs ~/.config/doom/config.el"
     abbr cfg_doom_init "emacs ~/.config/doom/init.el"
     abbr conf_doom_init "emacs ~/.config/doom/config.el"
