@@ -79,3 +79,11 @@
 (setq global-hl-line-modes nil)
 ;; Don't prompt for exiting emacs
 (setq confirm-kill-emacs nil)
+;; Enable Whitespace Mode
+(use-package! whitespace
+  :config
+  (global-whitespace-mode +1)
+  (setq whitespace-style '(face tabs tab-mark spaces space-mark trailing))
+)
+;; Column 80 line
+(setopt display-fill-column-indicator-column 80)
