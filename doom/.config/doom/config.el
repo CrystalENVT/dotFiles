@@ -79,6 +79,9 @@
 (setq global-hl-line-modes nil)
 ;; Don't prompt for exiting emacs
 (setq confirm-kill-emacs nil)
+;; Minimap mode enable on start & change to left side
+(minimap-mode t)
+(setq minimap-window-location 'left)
 ;; Enable Whitespace Mode
 (use-package! whitespace
   :config
@@ -86,4 +89,7 @@
   (setq whitespace-style '(face tabs tab-mark spaces space-mark trailing))
 )
 ;; Column 80 line
+(add-hook 'prog-mode-hook #'display-fill-column-indicator-mode)
 (setopt display-fill-column-indicator-column 80)
+;; Remove Smartparens
+(remove-hook 'doom-first-buffer-hook #'smartparens-global-mode)
