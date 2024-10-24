@@ -96,6 +96,16 @@ alias emacs "emacs --maximized"
 
 # Set default editor
 set -gx EDITOR emacs
+set -gx SUDO_EDITOR "emacs --maximized"
+
+# we need to override sudo to allow emacs to launch maximized via "sudo emacs"
+function sudo --wraps sudo --description "sudo but set emacs fullscreen"
+    if [ $argv[1] = "emacs" ]
+        /usr/bin/sudo emacs --maximized $argv[2..-1]
+    else
+        /usr/bin/sudo $argv
+    end
+end
 
 if test -e $HOME/.config/emacs/bin
     alias doom $HOME/.config/emacs/bin/doom
