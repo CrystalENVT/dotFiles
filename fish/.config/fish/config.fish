@@ -12,6 +12,7 @@ function fish_greeting
         fisher install jihchi/jq-fish-plugin | grep Installing
         fisher install jorgebucaran/autopair.fish | grep Installing
         fisher install oh-my-fish/plugin-bang-bang | grep Installing
+        fisher install reitzig/sdkman-for-fish | grep Installing
         # set temporary file for checking if an update should run later
         touch /tmp/crystal_fisher_update_timestamp
     else
@@ -33,6 +34,9 @@ end
 if type -q thefuck
     thefuck --alias | source
 end
+
+# set solarized dark theme before other customizations
+fish_config theme choose "Solarized Dark"
 
 # configure git prompt
 set -g __fish_git_prompt_show_informative_status true
@@ -85,8 +89,11 @@ end
 
 # Commands to run in interactive sessions
 if status is-interactive
-
+    # setup commands with expected behaviour
+    abbr rm "rm -i"
 end
+
+set -g __sdkman_custom_dir ~/.sdkman
 
 # add locally installed binaries to path
 fish_add_path ~/.local/bin/
@@ -114,9 +121,6 @@ if test -e $HOME/.config/emacs/bin
     abbr conf_doom_init "emacs ~/.config/doom/config.el"
     abbr conf_doom_init "emacs ~/.config/doom/init.el"
 end
-
-# setup commands with expected behaviour
-alias rm "rm -i"
 
 # "Obvious" abbreviations, alphabetically
 abbr . "source ~/.config/fish/config.fish"
