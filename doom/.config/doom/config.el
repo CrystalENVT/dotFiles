@@ -93,3 +93,5 @@
 (setopt display-fill-column-indicator-column 80)
 ;; Remove Smartparens
 (remove-hook 'doom-first-buffer-hook #'smartparens-global-mode)
+;; cua mode (use C-x, C-c, & C-v when selecting text to Cut, Copy, & Paste)
+(cua-mode 1)
