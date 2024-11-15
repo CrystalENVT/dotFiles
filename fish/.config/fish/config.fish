@@ -5,14 +5,17 @@ function fish_greeting
     # Check if fisher is installed, if not, install it. Only needed once per machine, but nice to have
     if not type -q fisher
         echo "Fisher is not installed. Installing it along with expected packages (!! & async_prompt)"
-        curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
-        # ^^ fisher install vv fisher plugins install, alphabetical order
-        fisher install acomagu/fish-async-prompt | grep Installing
-        fisher install jethrokuan/z | grep Installing
-        fisher install jihchi/jq-fish-plugin | grep Installing
-        fisher install jorgebucaran/autopair.fish | grep Installing
-        fisher install oh-my-fish/plugin-bang-bang | grep Installing
-        fisher install reitzig/sdkman-for-fish | grep Installing
+        begin
+            curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
+            # ^^ fisher install vv fisher plugins install, alphabetical order
+            fisher install acomagu/fish-async-prompt
+            fisher install jethrokuan/z
+            fisher install jichu4n/fish-command-timer
+            fisher install jihchi/jq-fish-plugin
+            fisher install jorgebucaran/autopair.fish
+            fisher install oh-my-fish/plugin-bang-bang
+            fisher install reitzig/sdkman-for-fish
+        end | grep Installing --color=NEVER
         # set temporary file for checking if an update should run later
         touch /tmp/crystal_fisher_update_timestamp
     else
@@ -38,33 +41,11 @@ end
 # set solarized dark theme before other customizations
 fish_config theme choose "Solarized Dark"
 
-# configure git prompt
-set -g __fish_git_prompt_show_informative_status true
-set -g __fish_git_prompt_show_informative_status 1
-set -g __fish_git_prompt_hide_untrackedfiles 1
+# don't use default timer printing info
+set fish_command_timer_enabled 0
 
-set -g __fish_git_prompt_color_branch magenta
-set -g __fish_git_prompt_showupstream informative
-set -g __fish_git_prompt_char_upstream_ahead "↑"
-set -g __fish_git_prompt_char_upstream_behind "↓"
-set -g __fish_git_prompt_char_upstream_prefix ""
-
-set -g __fish_git_prompt_char_stagedstate "●"
-set -g __fish_git_prompt_char_dirtystate "✚"
-set -g __fish_git_prompt_char_untrackedfiles "…"
-set -g __fish_git_prompt_char_conflictedstate "✖"
-set -g __fish_git_prompt_char_cleanstate "✔"
-
-set -g __fish_git_prompt_color_dirtystate blue
-set -g __fish_git_prompt_color_stagedstate yellow
-set -g __fish_git_prompt_color_invalidstate red
-set -g __fish_git_prompt_color_untrackedfiles $fish_color_normal
-set -g __fish_git_prompt_color_cleanstate green
-# end configure git prompt
-
-# configure async git prompt
-set -U async_prompt_functions fish_vcs_prompt
-# end configure async git prompt
+#source custom git_prompt configuration for the fish_prompt
+source ~/.config/fish/functions/git_prompt.fish
 
 # setup shell prompt
 function fish_prompt -d "Write out the prompt"
@@ -81,6 +62,8 @@ function fish_prompt -d "Write out the prompt"
 
     # teal current time
     printf "%s%s " (set_color 2BC) (date +%H:%M:%S)
+    # skobeloff previous command duration
+    printf "%s%s " (set_color 007474) $CMD_DURATION_STR
     # "normal" username
     printf "%s%s:" (set_color $user_color) $USER
     # colored cwd & git info & final prompt character
@@ -92,6 +75,8 @@ if status is-interactive
     # setup commands with expected behaviour
     abbr rm "rm -i"
 end
+
+set -g MANPAGER "less -R --use-color -Dd+r -Du+b"
 
 set -g __sdkman_custom_dir ~/.sdkman
 
