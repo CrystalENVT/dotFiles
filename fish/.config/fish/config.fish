@@ -41,6 +41,8 @@ end
 # set solarized dark theme before other customizations
 fish_config theme choose "Solarized Dark"
 
+source ~/.config/fish/functions/solarized_colors_def.fish
+
 # don't use default timer printing info
 set fish_command_timer_enabled 0
 
@@ -51,23 +53,25 @@ source ~/.config/fish/functions/git_prompt.fish
 function fish_prompt -d "Write out the prompt"
 
     if functions -q fish_is_root_user; and fish_is_root_user
-        set user_color brred
+        set user_color $COLOR_SOLARIZED_RED
         set PROMPT_CHAR '#'
     else
-        set user_color normal
+        set user_color $COLOR_SOLARIZED_BASE1
         set PROMPT_CHAR '$'
     end
     # prompt in format of:
     # TIME Username:cwd (git prompt)$
 
-    # teal current time
-    printf "%s%s " (set_color 2BC) (date +%H:%M:%S)
-    # skobeloff previous command duration
-    printf "%s%s " (set_color 007474) $CMD_DURATION_STR
+    # current time
+    printf "%s%s " (set_color $COLOR_SOLARIZED_VIOLET) (date +%H:%M:%S)
+    # previous command duration (if variable is set)
+    if set -q CMD_DURATION_STR; and string length -q $CMD_DURATION_STR
+        printf "%s%s " (set_color $COLOR_SOLARIZED_BLUE) $CMD_DURATION_STR
+    end
     # "normal" username
     printf "%s%s:" (set_color $user_color) $USER
     # colored cwd & git info & final prompt character
-    printf "%s%s%s%s%s " (set_color $fish_color_cwd) (prompt_pwd --full-length-dirs=2 --dir-length=1) (set_color normal) (fish_vcs_prompt) $PROMPT_CHAR
+    printf "%s%s%s%s%s " (set_color $COLOR_SOLARIZED_GREEN) (prompt_pwd --full-length-dirs=2 --dir-length=1) (set_color normal) (fish_vcs_prompt) $PROMPT_CHAR
 end
 
 # Commands to run in interactive sessions
