@@ -41,7 +41,11 @@ end
 # set solarized dark theme before other customizations
 fish_config theme choose "Solarized Dark"
 
+# import vars for solarized colors
 source ~/.config/fish/functions/solarized_colors_def.fish
+
+# setup dircolors
+#eval (dircolors ~/.dircolors)
 
 # don't use default timer printing info
 set fish_command_timer_enabled 0
@@ -133,4 +137,8 @@ abbr clean_git "git fetch --all -p; git branch -vv | grep \": gone]\" | awk '{ p
 
 if test -e $HOME/.config/fish/functions/work.fish
     source $HOME/.config/fish/functions/work.fish
+end
+
+if test -e /home/linuxbrew/.linuxbrew/bin/brew
+    fish_add_path /home/linuxbrew/.linuxbrew/bin /home/linuxbrew/.linuxbrew/sbin
 end

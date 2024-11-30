@@ -9,15 +9,15 @@ set -g __fish_git_prompt_hide_untrackedfiles 1
 
 set -g __fish_git_prompt_color_branch $COLOR_SOLARIZED_MAGENTA
 set -g __fish_git_prompt_showupstream informative
-set -g __fish_git_prompt_char_upstream_ahead "↑ "
-set -g __fish_git_prompt_char_upstream_behind "↓ "
+set -g __fish_git_prompt_char_upstream_ahead "↑"
+set -g __fish_git_prompt_char_upstream_behind "↓"
 set -g __fish_git_prompt_char_upstream_prefix ""
 
-set -g __fish_git_prompt_char_stagedstate "● "
-set -g __fish_git_prompt_char_dirtystate "✚ "
-set -g __fish_git_prompt_char_untrackedfiles "… "
-set -g __fish_git_prompt_char_conflictedstate "✖ "
-set -g __fish_git_prompt_char_cleanstate "✔ "
+set -g __fish_git_prompt_char_stagedstate "●"
+set -g __fish_git_prompt_char_dirtystate "✚"
+set -g __fish_git_prompt_char_untrackedfiles "…"
+set -g __fish_git_prompt_char_conflictedstate "✖"
+set -g __fish_git_prompt_char_cleanstate "✔"
 
 set -g __fish_git_prompt_color_dirtystate $COLOR_SOLARIZED_BLUE
 set -g __fish_git_prompt_color_stagedstate $COLOR_SOLARIZED_YELLOW

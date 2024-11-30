@@ -16,3 +16,6 @@ set -g COLOR_SOLARIZED_VIOLET  "6c71c4"
 set -g COLOR_SOLARIZED_BLUE    "268bd2"
 set -g COLOR_SOLARIZED_CYAN    "2aa198"
 set -g COLOR_SOLARIZED_GREEN   "859900"
+
+# Set LS_COLORS to match Solarized Dark
+eval (dircolors --c-shell ~/.dircolors/dircolors.solarized-ansi-dark)
