@@ -75,7 +75,7 @@ function fish_prompt -d "Write out the prompt"
     # "normal" username
     printf "%s%s:" (set_color $user_color) $USER
     # colored cwd & git info & final prompt character
-    printf "%s%s%s%s%s " (set_color $COLOR_SOLARIZED_GREEN) (prompt_pwd --full-length-dirs=2 --dir-length=1) (set_color normal) (fish_vcs_prompt) $PROMPT_CHAR
+    printf "%s%s%s%s%s " (set_color $COLOR_SOLARIZED_GREEN) (prompt_pwd --full-length-dirs=1 --dir-length=1) (set_color normal) (fish_vcs_prompt) $PROMPT_CHAR
 end
 
 # Commands to run in interactive sessions
