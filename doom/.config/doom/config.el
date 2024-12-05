@@ -89,7 +89,7 @@
   (setq whitespace-style '(face tabs tab-mark spaces space-mark trailing))
 )
 ;; Column 80 line
-(add-hook 'prog-mode-hook #'display-fill-column-indicator-mode)
+(global-display-fill-column-indicator-mode)
 (setopt display-fill-column-indicator-column 80)
 ;; Remove Smartparens
 (remove-hook 'doom-first-buffer-hook #'smartparens-global-mode)
