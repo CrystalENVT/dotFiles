@@ -91,28 +91,17 @@ set -g __sdkman_custom_dir ~/.sdkman
 # add locally installed binaries to path
 fish_add_path ~/.local/bin/
 
-# connect to emacs daemon, or create a new session
-alias emacs "emacs --maximized"
+# set emacs to open maximized by default
+abbr emacs "emacs -mm"
 
 # Set default editor
-set -gx EDITOR emacs
-set -gx SUDO_EDITOR "emacs --maximized"
-
-# we need to override sudo to allow emacs to launch maximized via "sudo emacs"
-function sudo --wraps sudo --description "sudo but set emacs fullscreen"
-    if [ $argv[1] = "emacs" ]
-        /usr/bin/sudo emacs --maximized $argv[2..-1]
-    else
-        /usr/bin/sudo $argv
-    end
-end
+set -gx EDITOR "emacs -mm"
+set -gx SUDO_EDITOR "emacs -mm"
 
 if test -e $HOME/.config/emacs/bin
     alias doom $HOME/.config/emacs/bin/doom
-    abbr cfg_doom_config "emacs ~/.config/doom/config.el"
-    abbr cfg_doom_init "emacs ~/.config/doom/init.el"
-    abbr conf_doom_init "emacs ~/.config/doom/config.el"
-    abbr conf_doom_init "emacs ~/.config/doom/init.el"
+    abbr doom_config "$EDITOR ~/.config/doom/config.el"
+    abbr doom_init "$EDITOR ~/.config/doom/init.el"
 end
 
 # "Obvious" abbreviations, alphabetically
