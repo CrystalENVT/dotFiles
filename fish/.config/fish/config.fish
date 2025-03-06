@@ -124,8 +124,8 @@ abbr clean_git "git fetch --all -p; git branch -vv | grep \": gone]\" | awk '{ p
 
 ### WORK STUFF BELOW HERE ###
 
-if test -e $HOME/.config/fish/functions/work.fish
-    source $HOME/.config/fish/functions/work.fish
+if test -e $HOME/workspace/work.fish
+    source $HOME/workspace/work.fish
 end
 
 if test -e /home/linuxbrew/.linuxbrew/bin/brew
