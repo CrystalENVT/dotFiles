@@ -20,7 +20,7 @@ function fish_greeting
         touch /tmp/crystal_fisher_update_timestamp
     else
         if test ! -f /tmp/crystal_fisher_update_timestamp
-            touch -d $(date --date="2 days ago") /tmp/crystal_fisher_update_timestamp
+            touch -d $(date -u +"%a %b %d %I:%M:%S %p %Z %Y" --date="2 days ago") /tmp/crystal_fisher_update_timestamp
         end
         set fisher_update_timestamp (date +%s -r /tmp/crystal_fisher_update_timestamp)
         set one_day_ago (date +%s --date="1 day ago")
