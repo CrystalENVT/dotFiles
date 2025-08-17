@@ -96,6 +96,11 @@ set -g __sdkman_custom_dir ~/.sdkman
 # add locally installed binaries to path
 fish_add_path ~/.local/bin/
 
+# if golang installed, all binaries to path
+if type go &>/dev/null
+    fish_add_path (go env GOPATH)/bin
+end
+
 # set emacs to open maximized by default
 abbr emacs "emacs -mm"
 
