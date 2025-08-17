@@ -38,6 +38,11 @@ if type -q thefuck
     thefuck --alias | source
 end
 
+# configure rust/cargo, if installed:
+if type -q cargo
+    fish_add_path ~/.cargo/bin
+end
+
 # set solarized dark theme before other customizations
 fish_config theme choose "Solarized Dark"
 
