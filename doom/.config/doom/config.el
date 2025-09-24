@@ -92,3 +92,7 @@
 (remove-hook 'doom-first-buffer-hook #'smartparens-global-mode)
 ;; cua mode (use C-x, C-c, & C-v when selecting text to Cut, Copy, & Paste)
 (cua-mode 1)
+;; have emacs use bash instead of fish
+(setq shell-file-name (executable-find "bash"))
+(setq-default vterm-shell "/home/linuxbrew/.linuxbrew/bin/fish")
+(setq-default explicit-shell-file-name "/home/linuxbrew/.linuxbrew/bin/fish")
