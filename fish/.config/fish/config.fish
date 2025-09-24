@@ -97,16 +97,16 @@ set -g __sdkman_custom_dir ~/.sdkman
 fish_add_path ~/.local/bin/
 
 # if golang installed, all binaries to path
-if type go &>/dev/null
+if type -q go
     fish_add_path (go env GOPATH)/bin
 end
 
 # set emacs to open maximized by default
-abbr emacs "emacs -mm"
+    abbr emacs "emacs -nw"
 
-# Set default editor
-set -gx EDITOR "emacs -mm"
-set -gx SUDO_EDITOR "emacs -mm"
+    # Set default editor
+    set -gx EDITOR "emacs -nw"
+    set -gx SUDO_EDITOR "emacs -nw"
 
 if test -e $HOME/.config/emacs/bin
     alias doom $HOME/.config/emacs/bin/doom
@@ -131,6 +131,9 @@ end
 
 # Prune removed remote branches from local git
 abbr clean_git "git fetch --all -p; git branch -vv | grep \": gone]\" | awk '{ print \$1 }' | xargs -n 1 git branch -D"
+
+# get the root of the git repo, as I commonly want to path back from there
+alias git_root "git rev-parse --show-toplevel"
 
 ### WORK STUFF BELOW HERE ###
 
