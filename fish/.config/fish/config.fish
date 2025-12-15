@@ -114,6 +114,11 @@ if test -e $HOME/.config/emacs/bin
     abbr doom_init "$EDITOR ~/.config/doom/init.el"
 end
 
+# connect to ssh host via bitwarden-cli credentials
+function bw_connect -d "Connect to ssh host using credentials from bitwarden-cli"
+    sshpass -p(bw list items --search $argv[1] | jq -r '.[0].login.password') ssh $argv[2]
+end
+
 # "Obvious" abbreviations, alphabetically
 abbr . "source ~/.config/fish/config.fish"
 abbr .. "cd .."
@@ -135,12 +140,13 @@ abbr clean_git "git fetch --all -p; git branch -vv | grep \": gone]\" | awk '{ p
 # get the root of the git repo, as I commonly want to path back from there
 alias git_root "git rev-parse --show-toplevel"
 
+# Linuxbrew config
+if test -e /home/linuxbrew/.linuxbrew/bin/brew
+    fish_add_path /home/linuxbrew/.linuxbrew/bin /home/linuxbrew/.linuxbrew/sbin
+end
+
 ### WORK STUFF BELOW HERE ###
 
 if test -e $HOME/workspace/work.fish
     source $HOME/workspace/work.fish
-end
-
-if test -e /home/linuxbrew/.linuxbrew/bin/brew
-    fish_add_path /home/linuxbrew/.linuxbrew/bin /home/linuxbrew/.linuxbrew/sbin
 end
