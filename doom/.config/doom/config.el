@@ -77,22 +77,31 @@
 
 ;; Don't highlight line that cursor is on
 (setq global-hl-line-modes nil)
+
 ;; Don't prompt for exiting emacs
 (setq confirm-kill-emacs nil)
+
 ;; Enable Whitespace Mode
 (use-package! whitespace
   :config
   (global-whitespace-mode +1)
   (setq whitespace-style '(face tabs tab-mark spaces space-mark trailing))
   )
+
 ;; Column 80 line
 (global-display-fill-column-indicator-mode)
 (setopt display-fill-column-indicator-column 80)
+
 ;; Remove Smartparens
 (remove-hook 'doom-first-buffer-hook #'smartparens-global-mode)
+
 ;; cua mode (use C-x, C-c, & C-v when selecting text to Cut, Copy, & Paste)
 (cua-mode 1)
+
 ;; have emacs use bash instead of fish
 (setq shell-file-name (executable-find "bash"))
 (setq-default vterm-shell "/home/linuxbrew/.linuxbrew/bin/fish")
 (setq-default explicit-shell-file-name "/home/linuxbrew/.linuxbrew/bin/fish")
+
+;; enable word-wrap (almost) everywhere
+(+global-word-wrap-mode +1)

@@ -102,11 +102,11 @@ if type -q go
 end
 
 # set emacs to open maximized by default
-    abbr emacs "emacs -nw"
+abbr emacs "emacs -nw"
 
-    # Set default editor
-    set -gx EDITOR "emacs -nw"
-    set -gx SUDO_EDITOR "emacs -nw"
+# Set default editor
+set -gx EDITOR "emacs -nw"
+set -gx SUDO_EDITOR "emacs -nw"
 
 if test -e $HOME/.config/emacs/bin
     alias doom $HOME/.config/emacs/bin/doom
