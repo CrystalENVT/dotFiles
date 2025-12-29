@@ -71,6 +71,10 @@ function fish_prompt -d "Write out the prompt"
         set user_color $COLOR_SOLARIZED_BASE1
         set PROMPT_CHAR '$'
     end
+
+    # don't use default timer printing info
+    set fish_command_timer_enabled 0
+
     # prompt in format of:
     # TIME commamand-run-length Username:cwd (git prompt)$
 
@@ -78,10 +82,9 @@ function fish_prompt -d "Write out the prompt"
     printf "%s%s " (set_color $COLOR_SOLARIZED_VIOLET) (date +%H:%M:%S)
     # previous command duration (if variable is set)
     if set -q CMD_DURATION_STR; and string length -q $CMD_DURATION_STR
-        # don't use default timer printing info
-        set fish_command_timer_enabled 0
         printf "%s%s " (set_color $COLOR_SOLARIZED_BLUE) $CMD_DURATION_STR
     end
+
     # "normal" username
     printf "%s%s:" (set_color $user_color) $USER
     # colored cwd & git info & final prompt character
