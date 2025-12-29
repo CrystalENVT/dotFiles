@@ -1,6 +1,34 @@
 #!/usr/bin/env fish
 
-# set greeting message, currently no text, but run fisher components once
+### Setup unrelated to Fish ######################
+# thefuck typo helper init, provides the command "fuck"
+if type -q thefuck
+    thefuck --alias | source
+end
+# configure rust/cargo, if installed:
+if type -q cargo
+    fish_add_path ~/.cargo/bin
+end
+### End setup of non-Fish components #############
+
+##################################################
+
+### Solarized configuration ######################
+# set solarized dark theme before other customizations
+fish_config theme choose "Solarized Dark"
+# import vars for solarized colors
+source ~/.config/fish/functions/solarized_colors_def.fish
+# setup dircolors
+#eval (dircolors ~/.dircolors)
+#source custom git_prompt configuration for the fish_prompt
+source ~/.config/fish/functions/git_prompt.fish
+### End Solarized configuration ##################
+
+##################################################
+
+### Fisher install & prompt configuration ########
+
+# instead of setting up greeting text, run fisher components once
 function fish_greeting
     # Check if fisher is installed, if not, install it. Only needed once per machine, but nice to have
     if not type -q fisher
@@ -33,31 +61,6 @@ function fish_greeting
     end
 end
 
-# thefuck typo helper init, provides the command "fuck"
-if type -q thefuck
-    thefuck --alias | source
-end
-
-# configure rust/cargo, if installed:
-if type -q cargo
-    fish_add_path ~/.cargo/bin
-end
-
-# set solarized dark theme before other customizations
-fish_config theme choose "Solarized Dark"
-
-# import vars for solarized colors
-source ~/.config/fish/functions/solarized_colors_def.fish
-
-# setup dircolors
-#eval (dircolors ~/.dircolors)
-
-# don't use default timer printing info
-set fish_command_timer_enabled 0
-
-#source custom git_prompt configuration for the fish_prompt
-source ~/.config/fish/functions/git_prompt.fish
-
 # setup shell prompt
 function fish_prompt -d "Write out the prompt"
 
@@ -69,12 +72,14 @@ function fish_prompt -d "Write out the prompt"
         set PROMPT_CHAR '$'
     end
     # prompt in format of:
-    # TIME Username:cwd (git prompt)$
+    # TIME commamand-run-length Username:cwd (git prompt)$
 
     # current time
     printf "%s%s " (set_color $COLOR_SOLARIZED_VIOLET) (date +%H:%M:%S)
     # previous command duration (if variable is set)
     if set -q CMD_DURATION_STR; and string length -q $CMD_DURATION_STR
+        # don't use default timer printing info
+        set fish_command_timer_enabled 0
         printf "%s%s " (set_color $COLOR_SOLARIZED_BLUE) $CMD_DURATION_STR
     end
     # "normal" username
@@ -87,11 +92,16 @@ end
 if status is-interactive
     # setup commands with expected behaviour
     abbr rm "rm -i"
+    set -g MANPAGER "less -R --use-color -Dd+r -Du+b"
 end
 
-set -g MANPAGER "less -R --use-color -Dd+r -Du+b"
-
 set -g __sdkman_custom_dir ~/.sdkman
+
+### End Fisher install & prompt configuration ####
+
+##################################################
+
+### Setup Additional binary paths ################
 
 # add locally installed binaries to path
 fish_add_path ~/.local/bin/
@@ -100,6 +110,17 @@ fish_add_path ~/.local/bin/
 if type -q go
     fish_add_path (go env GOPATH)/bin
 end
+
+# Linuxbrew binary paths
+if test -e /home/linuxbrew/.linuxbrew/bin/brew
+    fish_add_path /home/linuxbrew/.linuxbrew/bin /home/linuxbrew/.linuxbrew/sbin
+end
+
+### End setup of additional binary paths #########
+
+##################################################
+
+### Functions, Aliases, & Abbreviations ##########
 
 # set emacs to open maximized by default
 abbr emacs "emacs -nw"
@@ -130,7 +151,7 @@ abbr t "tmux attach -t"
 abbr untar "tar -xvf"
 
 # set clipboard based upon the contents of a file
-if type xclip &>/dev/null
+if type -q xclip
     abbr setclip "xclip -selection c"
 end
 
@@ -140,12 +161,23 @@ abbr clean_git "git fetch --all -p; git branch -vv | grep \": gone]\" | awk '{ p
 # get the root of the git repo, as I commonly want to path back from there
 alias git_root "git rev-parse --show-toplevel"
 
-# Linuxbrew config
-if test -e /home/linuxbrew/.linuxbrew/bin/brew
-    fish_add_path /home/linuxbrew/.linuxbrew/bin /home/linuxbrew/.linuxbrew/sbin
+# if flatpak builder image exists, add command alias
+if type -q flatpak and (flatpak list | grep org.flatpak.Builder)
+    alias flatpak-builder "flatpak run --command=flathub-build org.flatpak.Builder"
 end
 
-### WORK STUFF BELOW HERE ###
+# if vscodium image exists, add command alias
+if type -q flatpak and (flatpak list | grep com.vscodium.codium)
+    function codium -d "function wrapper for codium flatpak"
+        nohup flatpak run com.vscodium.codium $argv[1] >/dev/null 2>&1 &
+    end
+end
+
+### End functions, aliases, & abbreviations ######
+
+##################################################
+
+### WORK STUFF BELOW HERE ########################
 
 if test -e $HOME/workspace/work.fish
     source $HOME/workspace/work.fish
