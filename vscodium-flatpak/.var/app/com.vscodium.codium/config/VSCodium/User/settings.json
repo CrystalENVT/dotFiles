@@ -1,0 +1,14 @@
+{
+    "workbench.iconTheme": "vscode-icons",
+    "workbench.colorTheme": "Solarized Dark",
+    "editor.renderWhitespace": "all",
+    "terminal.integrated.defaultProfile.linux": "fish",
+    "terminal.integrated.profiles.linux": {
+      "fish": {
+        "path": "/app/bin/host-spawn",
+        "args": ["fish"],
+        "icon": "terminal-linux",
+        "overrideName": true
+      }
+    },
+}
