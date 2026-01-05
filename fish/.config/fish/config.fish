@@ -165,12 +165,12 @@ abbr clean_git "git fetch --all -p; git branch -vv | grep \": gone]\" | awk '{ p
 alias git_root "git rev-parse --show-toplevel"
 
 # if flatpak builder image exists, add command alias
-if type -q flatpak and (flatpak list | grep org.flatpak.Builder)
+if type -q flatpak; and flatpak list | grep -q org.flatpak.Builder
     alias flatpak-builder "flatpak run --command=flathub-build org.flatpak.Builder"
 end
 
 # if vscodium image exists, add command alias
-if type -q flatpak and (flatpak list | grep com.vscodium.codium)
+if type -q flatpak; and flatpak list | grep -q com.vscodium.codium
     function codium -d "function wrapper for codium flatpak"
         nohup flatpak run com.vscodium.codium $argv[1] >/dev/null 2>&1 &
     end
