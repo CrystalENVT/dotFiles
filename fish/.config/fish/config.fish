@@ -161,6 +161,8 @@ end
 # Prune removed remote branches from local git
 abbr clean_git "git fetch --all -p; git branch -vv | grep \": gone]\" | awk '{ print \$1 }' | xargs -n 1 git branch -D"
 
+abbr git_fix_corrupt "find .git/objects/ -size 0 -exec rm -f {} \; && git fetch origin"
+
 # get the root of the git repo, as I commonly want to path back from there
 alias git_root "git rev-parse --show-toplevel"
 
