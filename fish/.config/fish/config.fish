@@ -178,6 +178,16 @@ if type -q flatpak; and flatpak list | grep -q com.vscodium.codium
     end
 end
 
+# retrieve command cheat sheets from cheat.sh
+#   command block from curl cheat.sh/:fish
+
+function cheat.sh
+    curl cheat.sh/$argv
+end
+
+# register completions (on-the-fly, non-cached, because the actual command won't be cached anyway
+complete -c cheat.sh -xa '(curl -s cheat.sh/:list)'
+
 ### End functions, aliases, & abbreviations ######
 
 ##################################################
