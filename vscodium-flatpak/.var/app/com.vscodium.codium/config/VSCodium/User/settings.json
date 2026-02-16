@@ -11,4 +11,5 @@
         "overrideName": true
       }
     },
+    "editor.wordWrap": "bounded",
 }
