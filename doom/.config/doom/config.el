@@ -105,3 +105,9 @@
 
 ;; enable word-wrap (almost) everywhere
 (+global-word-wrap-mode +1)
+
+;;; Make mouse work in -nw mode (nox or terminal)
+(unless window-system
+  (xterm-mouse-mode)
+  (global-set-key (kbd "<wheel-down>") 'next-line)
+  (global-set-key (kbd "<wheel-up>") 'previous-line))
