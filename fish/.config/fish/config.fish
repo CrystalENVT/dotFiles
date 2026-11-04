@@ -159,7 +159,7 @@ if type -q xclip
 end
 
 # Prune removed remote branches from local git
-abbr clean_git "git fetch --all -p; git branch -vv | grep \": gone]\" | awk '{ print \$1 }' | xargs -n 1 git branch -D"
+abbr clean_git "git fetch --all -p; git branch -v | awk '{if($3=="[gone]") print $1}' | xargs -n 1 git branch -D"
 
 abbr git_fix_corrupt "find .git/objects/ -size 0 -exec rm -f {} \; && git fetch origin"
 
