@@ -48,10 +48,23 @@ function fish_greeting
         touch /tmp/crystal_fisher_update_timestamp
     else
         if test ! -f /tmp/crystal_fisher_update_timestamp
-            touch -d $(date -u +"%a %b %d %I:%M:%S %p %Z %Y" --date="2 days ago") /tmp/crystal_fisher_update_timestamp
+            switch (uname)
+                case Linux
+                    touch -d $(date -u +"%a %b %d %I:%M:%S %p %Z %Y" --date="2 days ago") /tmp/crystal_fisher_update_timestamp
+                case Darwin
+                    gtouch -d $(gdate -u +"%a %b %d %I:%M:%S %p %Z %Y" --date="2 days ago") /tmp/crystal_fisher_update_timestamp
+                case '*'
+                    echo "Unknown uname during date setup"
+            end
         end
-        set fisher_update_timestamp (date +%s -r /tmp/crystal_fisher_update_timestamp)
-        set one_day_ago (date +%s --date="1 day ago")
+        switch (uname)
+            case Linux
+                set fisher_update_timestamp (date +%s -r /tmp/crystal_fisher_update_timestamp)
+                set one_day_ago (date +%s --date="1 day ago")
+            case Darwin
+                set fisher_update_timestamp (gdate +%s -r /tmp/crystal_fisher_update_timestamp)
+                set one_day_ago (gdate +%s --date="1 day ago")
+        end
         if [ $fisher_update_timestamp -lt $one_day_ago ]
             echo "Updating fisher & plugins..."
             # silence update details except for info
